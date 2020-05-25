@@ -1,0 +1,84 @@
+.THIS .slds-modal__container {
+    margin: 0 auto;
+    width: 400px;
+    max-width: 400px;
+    min-width: 20rem;
+}
+.THIS .slds-modal__close {
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    background: #fff;
+    border-radius: 50%;
+}
+.THIS .slds-button_icon-inverse {
+    color: rgb(0, 0, 0);
+}
+.THIS  .slds-text-heading_large, .THIS .slds-text-heading--large {
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: #fff;
+}
+.THIS .slds-modal__header {
+    background-color: #2c8fbc;
+    border-bottom: none;
+}
+.THIS .slds-modal__footer {
+    border-top: 1px solid #d4d4d4;
+}
+.THIS .slds-input, .THIS .cETDM_AddDeliveryRequest select {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 42px;
+    border: 1px solid #dbd8d8;
+    border-radius: 3px;
+    background-color: #f1f1f1;
+    display: block;
+    font-size: 14px;
+    line-height: 26px;
+    color: #5d5b5e;
+    padding: 0 10px;
+}
+.THIS .slds-form-element__label {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.THIS .btn_table {
+    font-size: 14px;
+    margin-top: 3px;
+    background: #f2f2f2;
+    border: 1px solid #00c19e;
+    padding: 2px 15px;
+    color: #00c19e;
+    white-space: nowrap;
+}
+.THIS .btn_table:hover {
+    background: #00c19e;
+    border: 1px solid #00c19e;
+    padding: 2px 15px;
+    color: #fff;
+}
+.THIS .btnright{
+    float:right;
+}
+.THIS .slds-p-horizontal_small, .THIS .slds-p-horizontal--small {
+    padding: 0;
+}
+.THIS .Drop-Address-listbox{
+    position: sticky!important;
+    z-index: 1;
+    margin-top: -12px;
+}
+.THIS .slds-m-left_xx-small{
+    overflow:hidden;
+}
+@media only screen and (max-width: 480px){
+    .THIS .slds-modal__container {
+        margin: 0 auto;
+        width: 320px;
+        max-width: 320px;
+    }
+}

@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+body {
+    background: #e6e6e6;
+    padding:30px 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+.container {
+    background: #fff;
+    padding: 15px;
+    width: 90%;
+    margin: auto;
+}
+.col-sm-6 {
+      width: 50%;
+    display: inline-block;
+    float: left;
+}
+.text-right{
+  text-align: right;
+}
+.log_div{
+    padding-top: 15px;
+}
+.log_div p{
+  margin: 0px;margin-bottom: 5px;
+}
+.address , .bill_to , .table-responsive{
+      display: block;
+    clear: both;
+    position: relative;padding-top: 15px;
+}
+.logo_img{
+  height: 100px;
+}
+.log_div h1{
+  margin: 0px;
+}
+.log_div #hospital_name{
+  font-weight: bold;font-size: 18px;
+}
+.log_div #hospital_streetCity{
+  font-size: 12px;font-weight: bold;
+}
+.log_div #hospital_stateCountry{
+  color:#9E9E9E;
+}
+.address h4{
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+.address p{
+    color: #9E9E9E;
+    margin-bottom: 5px;
+    font-size: 14px;
+    margin-top: 0px;
+}
+.bill_to h5{
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  margin: 0px;
+}
+.bill_to p{
+  color: #9E9E9E;
+      margin-bottom: 4px;
+      font-size: 14px;margin-top: 0px;
+}
+.date_div div{
+      color: #9E9E9E;
+    /*font-weight: bold;*/
+    width: 50%;
+    display: inline-block;
+    float: left;
+}
+.table-responsive table{
+  margin-bottom: 10px;border-collapse: collapse;
+}
+.table-responsive table {
+    margin-bottom: 10px;
+    width: 100%;
+}
+table thead{
+    background: #555;
+    color: #fff;
+}
+table thead th{
+    padding: 10px 5px;
+    border: none;
+    font-size: 14px;    text-align: left;
+}
+table tbody{
+      border-bottom: 2px solid #dadada;
+}
+table tbody td{
+    padding: 10px 5px;
+    border: none;
+    font-size: 14px;
+}
+.total_div{
+  width: 50%;float: left;display: inline-block;
+}
+.final_div div{
+      color: #9E9E9E;
+    font-weight: bold;
+    margin: 5px auto;width: 50%;
+    float: left;
+}
+.total div{ 
+  color: #000;
+}
+.final{
+  background: #f2f2f2;
+  color: #000;
+}
+.final div{
+  background: #f2f2f2;
+  color: #000;padding: 10px 0px;
+}
+.bottom_pad{
+  padding-bottom: 40px;
+}
+.final_in_word{
+  color: #333;
+}
+.thanks_div p{
+  margin-bottom: 1px;
+}
+.term_cond , .note{
+    color: #9E9E9E;
+    font-weight: bold;
+    font-size: 16px;
+}

@@ -1,0 +1,39 @@
+<aura:component implements="force:hasRecordId,forceCommunity:availableForAllPageTypes"  access="global"> 
+    
+    <aura:attribute name="record" type="Object" default="
+        {'sobjectType' : 'ETDM_Delivery_Package__c',
+        'ETDM_Category__c' : '',
+        'ETDM_Size__c' : '',
+        'ETDM_Weight__c' : ''}"/>
+    <aura:attribute name="categoryTypes" type="List"/>
+    <aura:attribute name="weightTypes" type="List"/>
+    <aura:attribute name="sizeTypes" type="List"/>
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <c:ETDM_UtilityMethods aura:id="ETDM_UtilityMethods"/>
+
+        <lightning:layoutItem size="4" >
+            <lightning:select aura:id="ETDM_Category__c" name="Category" label="" 
+            value="{!v.record.ETDM_Category__c}"    >
+            <aura:iteration items="{!v.categoryTypes}" var="val">
+                    <option value="{!val}"> {!val}</option>
+            </aura:iteration>
+           </lightning:select> 
+        </lightning:layoutItem>
+        <lightning:layoutItem size="3" >
+           <lightning:select aura:id="ETDM_Weight__c" name="Weight" label="" 
+            value="{!v.record.ETDM_Weight__c}"    >
+            <aura:iteration items="{!v.weightTypes}" var="val">
+                    <option value="{!val}"> {!val}</option>
+            </aura:iteration>
+           </lightning:select>  
+        </lightning:layoutItem>
+        <lightning:layoutItem size="3" >
+           <lightning:select aura:id="ETDM_Size__c" name="Size" label="" 
+            value="{!v.record.ETDM_Size__c}"    >
+            <aura:iteration items="{!v.sizeTypes}" var="val">
+                <option value="{!val}"> {!val}</option>
+        </aura:iteration>
+           </lightning:select>  
+        </lightning:layoutItem>
+    
+</aura:component>

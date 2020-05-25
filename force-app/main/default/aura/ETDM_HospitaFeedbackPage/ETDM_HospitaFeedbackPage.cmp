@@ -1,0 +1,184 @@
+<aura:component access="global" implements="force:hasRecordId,forceCommunity:availableForAllPageTypes" > 
+
+    <aura:attribute name="workOrderId" type="Id"/> 
+    <aura:attribute name="newCase" type="Object"/>
+    <aura:attribute name="simpleNewCase" type="Object" />
+    <aura:attribute name="newCaseError" type="String"/> 
+    <aura:attribute name="isReportModal" type="boolean"/>
+    <aura:attribute name="loaded" type="Boolean" default="true" />
+     <aura:attribute name="caseRecord" type="Case"  default="{'sObjectType':'Case','Description':'','ETDM_Work_Order__c':'','ETDM_Steps_to_Reproduce__c':'','ETDM_Suggestion_Type__c':'','ETDM_Complaint_Type__c':'','ETDM_Rating__c':''}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <force:recordData aura:id="CaseRecordCreator" 
+                      layoutType="FULL"
+                      targetRecord="{!v.newCase}"
+                      targetFields="{!v.simpleNewCase}"
+                      targetError="{!v.newCaseError}" />
+   <aura:if isTrue="{! v.loaded }">
+   <div class="feedback-content">
+    	<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+    		<div class="slds-modal__container">
+        <!-- ###### MODAL BOX HEADER Start ######-->
+        <header class="slds-modal__header">
+                  
+            <lightning:buttonIcon iconName="utility:close"
+                                    onclick="{! c.closeModel }"
+                                    alternativeText="close"
+                                    variant="bare-inverse"
+                                    class="slds-modal__close"/>
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Feedback Form</h2>
+        </header>
+        <!--###### MODAL BOX BODY Part Start######-->
+    <div class="slds-modal__content slds-p-around_medium bgImageDiv"  id="modal-content-id-1">
+            
+   <form class="slds-form--stacked" aura:id="feedbackForm">
+    
+         
+    <p>We appreciate the time you have taken to help us improve our site and service. Please use the form below to provide us your feedback.</p>
+    <a href="" onclick="{!c.openSuggestionForm}"><lightning:buttonIcon iconName="utility:light_bulb"
+    onclick=""
+    alternativeText=""
+    variant="bare-inverse"
+    class=""/> Make a Suggestion</a>
+    
+    <a href="" onclick="{!c.openBugForm}"><lightning:buttonIcon iconName="utility:warning"
+    onclick=""
+    alternativeText=""
+    variant="bare-inverse"
+    class=""/> Report A Bug</a>
+    
+    <a href="" onclick="{!c.openComplimentForm}"><lightning:buttonIcon iconName="utility:like"
+    onclick=""
+    alternativeText=""
+    variant="bare-inverse"
+    class=""/> Send a compliment</a>
+    
+    <a href="" onclick="{!c.openComplaintForm}"><lightning:buttonIcon iconName="utility:comments"
+    onclick=""
+    alternativeText=""
+    variant="bare-inverse"
+    class=""/> Make a Complaint</a>
+        </form>
+    
+        <div class="Suggestion slds-hide" aura:Id="Suggestion">
+            <lightning:card >
+                <div class="slds-p-horizontal--small">
+                    <p>Thank you for helping us to improve our products and services. We appreciate your suggestions!</p>
+                    <lightning:select aura:id="CaseField" name="Type" label="Type"
+                        value="{!v.caseRecord.ETDM_Suggestion_Type__c}" required="true">
+                               <option value=""></option>
+                               <option value="Improvement">Improvement</option>
+                               <option value="New Feature">New Feature</option>
+                               <option value="Usability">Usability</option>
+                               <option value="Other">Other</option>
+                       </lightning:select>  
+                    <lightning:textarea aura:id="CaseField" label="Description" value="{!v.caseRecord.Description}" />  
+                    <p aura:id='mandatoryCheck1' class="slds-hide" >Please fill all the deails!</p> 
+                     <br/>
+                     <lightning:buttonIcon iconName="utility:back"
+                     onclick="{! c.goToFeedbackForm }"
+                     alternativeText="back"
+                     variant="bare-inverse"
+                     class="slds-float_left btnsaveicon"/> 
+                     <lightning:buttonIcon iconName="utility:record_create"
+                     onclick="{! c.handleSaveCase }"
+                     alternativeText="Save"
+                     variant="bare-inverse"
+                     class="slds-float_right btnsaveicon"/> 
+                    
+                </div>
+            </lightning:card>
+        </div>
+        <div class="Bug slds-hide" aura:Id="Bug">
+            <lightning:card >
+                <div class="slds-p-horizontal--small">
+                    <p>Please, send full details about the bug you've found and we will fix it ASAP! Sorry for the inconvenience caused.</p>
+                    <lightning:input aura:id="CaseField" label="Description" value="{!v.caseRecord.Description}"/> 
+                    <lightning:textarea aura:id="CaseField" label="Steps to Reproduce" value="{!v.caseRecord.ETDM_Steps_to_Reproduce__c}"/>  
+                    <p aura:id='mandatoryCheck2' class="slds-hide" >Please fill all the deails!</p> 
+                    <br/>
+                     <lightning:buttonIcon iconName="utility:back"
+                     onclick="{! c.goToFeedbackForm }"
+                     alternativeText="back"
+                     variant="bare-inverse"
+                     class="slds-float_left btnsaveicon"/> 
+                     <lightning:buttonIcon iconName="utility:record_create"
+                     onclick="{! c.handleSaveCase }"
+                     alternativeText="Save"
+                     variant="bare-inverse"
+                     class="slds-float_right btnsaveicon"/> 
+                </div>
+            </lightning:card>
+        </div>
+        <div class="compliment slds-hide" aura:Id="compliment">
+            <lightning:card >
+                <div class="slds-p-horizontal--small">
+                    <p>We are glad to see that you are happy with our products and services. Thank you for your kind words!</p>
+                    <lightning:input aura:id="CaseField" label="Testimonial" value="{!v.caseRecord.Description}" disabled="false"/> 
+                    <lightning:input aura:id="CaseField" label="Rating" value="{!v.caseRecord.ETDM_Rating__c}"/>  
+                    <p aura:id='mandatoryCheck3' class="slds-hide" >Please fill all the deails!</p> 
+                    <br/>
+                    <lightning:buttonIcon iconName="utility:back"
+                    onclick="{! c.goToFeedbackForm }"
+                    alternativeText="back"
+                    variant="bare-inverse"
+                    class="slds-float_left btnsaveicon"/> 
+                    <lightning:buttonIcon iconName="utility:record_create"
+                    onclick="{! c.handleSaveCase }"
+                    alternativeText="Save"
+                    variant="bare-inverse"
+                    class="slds-float_right btnsaveicon"/> 
+                </div>
+            </lightning:card>
+        </div>
+
+    <!-- Display the new Case form -->
+    <div class="complaint slds-hide" aura:Id="complaint">
+        <lightning:card >
+            <div class="slds-p-horizontal--small">
+                <p>We are sorry to hear you are disappointed. Please, accept our sincere apology for the inconvenience caused.</p>
+                <lightning:select aura:id="CaseField" name="Type" label="Complaint Type" 
+                value="{!v.caseRecord.ETDM_Complaint_Type__c}" required="true">
+                       <option value=""></option>
+                       <option value="Payment Issue">Delivery Problem</option>
+                       <option value="Functionality Issue">Functionality Issue</option>
+                       <option value="Bus tracking Issue">Vehicle tracking Issue</option>
+                       <option value="Complaint on Driver">Complaint on Driver</option>
+                       <option value="Complaint on facilities">Complaint on facilities</option>
+                       <option value="Other">Other</option>
+               </lightning:select> 
+               <lightning:textarea aura:id="CaseField" label="Complaint" value="{!v.caseRecord.Description}"/> 
+                 <p aura:id='mandatoryCheck4' class="slds-hide" >Please fill all the deails!</p> 
+                <br/>
+                 
+                <lightning:buttonIcon iconName="utility:back"
+                                    onclick="{! c.goToFeedbackForm }"
+                                    alternativeText="back"
+                                    variant="bare-inverse"
+                                    class="slds-float_left btnsaveicon"/> 
+                                    
+                 <lightning:buttonIcon iconName="utility:record_create"
+                                    onclick="{! c.handleSaveCase }"
+                                    alternativeText="Save"
+                                    variant="bare-inverse"
+                                    class="slds-float_right btnsaveicon"/> 
+            </div>
+        </lightning:card>
+    </div>
+      
+</div>
+</div>
+		</section>
+    </div> 
+          <aura:set attribute="else">
+                        <lightning:spinner alternativeText="Loading" class="slds-is-relative" />
+          </aura:set>
+  </aura:if>
+    <!-- Display Lightning Data Service errors -->
+    <aura:if isTrue="{!not(empty(v.newCaseError))}">
+        <div class="recordError">
+            {!v.newCaseError}</div>
+    </aura:if>
+   
+</aura:component>

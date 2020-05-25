@@ -1,0 +1,58 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+                access="global" >
+    
+    <aura:attribute name="workOrderId" type="Id"/>
+    <aura:attribute name="isCancelModal" type="boolean"/>
+   
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="simpleRecord" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+
+    <force:recordData aura:id="recordHandler"
+    recordId="{!v.workOrderId}"
+    layoutType="FULL"
+    targetRecord="{!v.record}"
+    targetFields="{!v.simpleRecord}"
+    targetError="{!v.recordError}"
+    mode="EDIT"
+    recordUpdated="{!c.handleRecordUpdated}"
+    />
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" >
+    <div class="slds-modal__container" >
+        <!-- ###### MODAL BOX HEADER Start ######-->
+        <header class="slds-modal__header">
+            <lightning:buttonIcon iconName="utility:close"
+                                  onclick="{! c.closeModel }"
+                                  alternativeText="close"
+                                  variant="bare-inverse"
+                                  class="slds-modal__close"/>
+            <h2 id="modal-heading-01" class="slds-text-heading_large slds-hyphenate">Canel Request</h2>
+            
+        </header>
+        <!--###### MODAL BOX BODY Part Start######-->
+        <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+            <p>Dou you want to cancel this request?</p>
+        </div>
+        <footer class="slds-modal__footer">
+            <div class="slds-form-element slds-float_right" > 
+            <!--lightning:button variant="neutral" 
+                              label="Close"
+                              title="Close"
+                              onclick="{! c.closeModel }" class="btn_table"/-->
+                              <lightning:button variant="brand" 
+                              label="Cancel Request"
+                              title="Cancel Request"
+                              onclick="{!c.CancelRequest}" class="btn_table"/>
+        </div>
+            
+        </footer>
+    </div>
+    </section>
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+    <br />
+    <div class="error slds-box">
+        {!v.recordError}
+    </div> 
+</aura:if>
+</aura:component>

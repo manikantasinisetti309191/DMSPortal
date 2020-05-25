@@ -1,0 +1,70 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+                access="global" >
+    
+    <aura:attribute name="workOrderId" type="Id"/>
+    <aura:attribute name="driverList" type="Object"/>
+    <aura:attribute name="isTrackModal" type="boolean"/>
+    <aura:attribute name="mapMarkers" type="Object"/>
+    <aura:attribute name="markersTitle" type="String" />
+    <aura:attribute name="zoomLevel" type="Integer" />
+    <c:ETDM_UtilityMethods aura:id="ETDM_UtilityMethods"/>
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    
+    
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" >
+    <div class="slds-modal__container" >
+        <!-- ###### MODAL BOX HEADER Start ######-->
+        <header class="slds-modal__header">
+            <lightning:buttonIcon iconName="utility:close"
+                                  onclick="{! c.closeModel }"
+                                  alternativeText="close"
+                                  variant="bare-inverse"
+                                  class="slds-modal__close"/>
+            <h2 id="modal-heading-01" class="slds-text-heading_large slds-hyphenate">Track Order</h2>
+            
+        </header>
+        <!--###### MODAL BOX BODY Part Start######-->
+        <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+            <!--lightning:layout horizontalAlign="space">
+            <lightning:layoutItem padding="around-small">
+               <p>Driver Name: {!v.driverList.Name}</p>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small">
+                <p>Phone: {!v.driverList.ETDM_Driver_Phone__c}</p>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout horizontalAlign="space">
+            <lightning:layoutItem padding="around-small">
+                <p>email: {!v.driverList.ETDM_Driver_Email__c}</p>
+            </lightning:layoutItem>
+          </lightning:layout>  
+          <lightning:layout horizontalAlign="space">
+            <lightning:layoutItem padding="around-small">
+           
+            </lightning:layoutItem>
+          </lightning:layout--> 
+          <lightning:map 
+          mapMarkers="{! v.mapMarkers }"
+          markersTitle="{!v.markersTitle}" 
+          zoomLevel="{!v.zoomLevel}" /> 
+        </div>
+        <footer class="slds-modal__footer">
+            <div class="slds-form-element slds-float_right" > 
+            <lightning:button variant="neutral" 
+                              label="Close"
+                              title="Close"
+                              onclick="{! c.closeModel }" class="btn_table"/>
+            
+        </div>
+            
+        </footer>
+    </div>
+    </section>
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+    <br />
+    <div class="error slds-box">
+        {!v.recordError}
+    </div> 
+</aura:if>
+</aura:component>

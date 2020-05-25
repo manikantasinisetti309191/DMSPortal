@@ -1,0 +1,55 @@
+.THIS .slds-box{
+    padding: 0rem;
+    border-radius: .25rem;
+    border: 1px solid #f2f2f2;
+    margin: 0px 10px 20px 10px;
+    width: 300px;
+    float: left;
+    -webkit-box-shadow: 0px 9px 6px -4px #EEEEEE;
+    -moz-box-shadow: 0px 9px 6px -4px #EEEEEE;
+    box-shadow: 0px 9px 6px -4px #EEEEEE;
+}
+.THIS .Padbottomnon{
+    border-bottom: 1px solid #f2f2f2;
+}
+.THIS .Padbottomnonlast{
+    padding-bottom: 10px;
+}
+.THIS .headtxt{
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    width: 110px;
+}
+.THIS .headtxtdyn{
+    font-size: 14px;
+}
+.THIS .desctxt{
+    height:80px;
+    overflow:hidden;
+}
+.THIS .firstrow{
+    background-color: #a58427;
+    color:#fff;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .THIS .slds-box {
+        margin: 0% 1% 2% 1%;
+        width: 48%;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .THIS .slds-box {
+        margin: 0% 1% 2% 1%;
+        width: 48%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .THIS .slds-box {
+        margin: 0% 1% 2% 1%;
+        width: 98%;
+    }
+}

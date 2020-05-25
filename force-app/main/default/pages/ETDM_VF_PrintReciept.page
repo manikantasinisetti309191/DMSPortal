@@ -1,0 +1,133 @@
+<apex:page applyBodyTag="false" showHeader="false" sidebar="false"  renderAs="pdf"
+           standardStylesheets="false" applyHtmlTag="false" Controller="ETDM_PrintRecieptController" >
+    <apex:includeScript value="{! $Resource.ETDM_PrintReciept }"/>
+    <apex:stylesheet value="{!URLFOR($Resource.ETDM_PrintReciept,'css/printreciept.css')}"/>
+    <apex:pageBlock rendered="{!NOT($ObjectType.Account.accessible) }" >
+        <p> You dont have access to this record. Please contact Administrator </p>
+    </apex:pageBlock>
+    
+    <div class="container bottom_pad">
+        <div class="row log_div">
+            <div class="col-sm-6 col-xs-12">
+                <apex:image style="height: 100px;"
+                            url="{!URLFOR($Resource.ETDM_PrintReciept, 'images/logo.png')}"/>
+                
+            </div>
+            <div class="col-sm-6 col-xs-12 text-right">
+                <p id="hospital_name">{!acc.Name}</p><!--invoice_no   balance_due amount-->
+                <p id="hospital_streetCity">{!IF((acc.BillingStreet == null), '', acc.BillingStreet+',')}{!IF((acc.BillingCity == null), '', acc.BillingCity)}</p>
+                <p id="hospital_stateCountry">{!IF((acc.BillingState == null), '', acc.BillingState+',')}{!IF((acc.BillingCountry == null),'', acc.BillingCountry)}</p>
+                <p id="phone">{!acc.phone}</p> 
+            </div> 
+        </div>
+        
+        <br/>
+        <div class="row bill_to">
+            <div class="col-sm-6 col-xs-12">
+                <p>ET Ref.(WO) # : {!wo.workordernumber}</p>
+                <p>Hospital Ref. # : {!wo.ETDM_Customer_Ref_Number__c}</p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="row date_div">
+                    <div class="col-sm-8 col-xs-6 text-right">Reciept Date :</div>
+                    <div class="col-sm-4 col-xs-6 text-right"><apex:outputText value="{0,date,MM'/'dd'/'yyyy HH:mm}">
+                        <apex:param value="{!Now()+(0.04167*4)}" /> 
+                        </apex:outputText>
+                    </div>
+                </div>
+                <div class="row date_div">
+                    <div class="col-sm-8 col-xs-6 text-right">Branch :</div>
+                    <div class="col-sm-4 col-xs-6 text-right">{!wo.Account.name}</div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <!--<br/><br/><br/>
+            <div>
+                Work Order Details
+            </div>-->
+            <div class="col-sm-12">    
+                <div class="table-responsive">          
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>WO#</th>
+                                <th>Service Type</th>
+                                <th>Pickup Location</th>
+                                <th>Drop off Location</th>
+                                <th>Pickup Start Date/Time</th>
+                                <th>Pickup End Date/Time</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border: 1px thin black;">
+                            <tr>
+                                <td>1</td>
+                                <td>{!wo.ETDM_Request_Type__c}</td>
+                                <td>{!wo.Account.ETDM_Branch_Address__c}</td>
+                                <td>{!woAddr}</td>
+                                <td><apex:outputText value="{0,date,MM'/'dd'/'yyyy HH:mm}"><!--0,date,MM/dd/yy-->
+                                    <apex:param value="{!wo.startdate}"/> 
+                                    </apex:outputText>
+                                </td>
+                                <td><apex:outputText value="{0,date,MM'/'dd'/'yyyy HH:mm}">
+                                    <apex:param value="{!wo.enddate}"/> 
+                                    </apex:outputText></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <div>
+            <p1>Delivery Items</p1>
+            <br/>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+        	<apex:pageBlock >
+            <apex:pageBlockTable value="{!lstDelPackage}" var="item" width="100%" align="center" CELLPADDING="20">
+            	<apex:column value="{!item.Name}"/>
+                <apex:column value="{!item.ETDM_Work_Order__c}"/>
+                <apex:column value="{!item.ETDM_Category__c}"/>
+                <apex:column value="{!item.ETDM_Size__c}"/>
+                <apex:column value="{!item.ETDM_Weight__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>        
+            </div>
+        </div>
+        
+        <!--<div class="row bill_to">
+            <div class="col-sm-6 col-xs-12 total_div">
+                &nbsp;
+            </div>
+            <div class="col-sm-6 col-xs-12 total_div">
+                <div class="row final_div final">
+                    <div class="col-sm-8 col-xs-6 text-right">Category :</div>
+                    <div class="col-sm-4 col-xs-6 text-right">{!delPackage.ETDM_Category__c}</div>
+                </div>
+                <div class="row final_div final">
+                    <div class="col-sm-8 col-xs-6 text-right">Weight :</div>
+                    <div class="col-sm-4 col-xs-6 text-right">{!delPackage.ETDM_Weight__c}</div>
+                </div>
+                <div class="row final_div final" >
+                    <div class="col-sm-8 col-xs-6 text-right">Size of Parcel :</div>
+                    <div class="col-sm-4 col-xs-6 text-right">{!delPackage.ETDM_Size__c}</div>
+                </div>
+            </div>
+        </div>-->
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-sm-12 thanks_div">
+                <br/><br/>
+                <p class="note">Notes </p>
+                <p>Please deliver the products on time</p>
+                <br/>
+                <p class="term_cond">Terms And Condition</p>
+                <p>Please contact Hospital for any issues</p>
+            </div>
+        </div>
+    </div>
+</apex:page>

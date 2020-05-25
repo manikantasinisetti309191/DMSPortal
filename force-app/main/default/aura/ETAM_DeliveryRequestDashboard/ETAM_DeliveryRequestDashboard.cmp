@@ -1,0 +1,51 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="totalCount" type="Integer"/>
+    <aura:attribute name="activeCount" type="Integer"/>
+    <aura:attribute name="deliveredCount" type="Integer"/>
+    <aura:attribute name="cancelledCount" type="Integer"/>
+    <aura:attribute name="onHoldCount" type="Integer"/>
+    <aura:attribute name="selectedTabId" type="String"/>
+    <c:ETDM_UtilityMethods aura:id="ETDM_UtilityMethods"/>
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+     <div style="padding-left: 100px;padding-right: 100px">
+                <div class="slds-grid ">
+                    <div class="slds-col statusdiv divdelreq" >
+                        <span class="headspan">{!$Label.c.ETDM_Total_Delivery_Requests}</span>
+                        <br/>
+                        <div class="slds-text-heading_large valuespan" >{!v.totalCount}</div>
+                    </div>
+                    <div class="slds-col statusdiv divactive" >
+                        <a href="" data-record="activeDeliveries" onclick="{!c.setTabId}">
+                        <span class="headspan">{!$Label.c.ETDM_Active}</span>
+                        <br/>
+                        <div class="slds-text-heading_large valuespan" >
+                            {!v.activeCount}</div></a>
+                    </div>
+                    <div class="slds-col statusdiv divdelivered" >
+                        <a href="" data-record="CompletedDeliveries" onclick="{!c.setTabId}">
+                        <span class="headspan">Transferred</span>
+                        <br/>
+                        <div class="slds-text-heading_large valuespan" >
+                            {!v.deliveredCount}</div>
+                        </a>
+                    </div>
+                    <div class="slds-col statusdiv divcancelled" >
+                        <a href="" data-record="CancelledDeliveries" onclick="{!c.setTabId}">
+                        <span class="headspan">{!$Label.c.ETDM_Cancelled}</span>
+                        <br/>
+                        <div class="slds-text-heading_large valuespan" >
+                        {!v.cancelledCount}</div>
+                        </a>
+                    </div>
+                    <div class="slds-col statusdiv divhold">
+                        <a href="" data-record="OnHoldDeliveries" onclick="{!c.setTabId}">
+                        <span class="headspan">{!$Label.c.ETDM_OnHold}</span>
+                        <br/>
+                        <div class="slds-text-heading_large valuespan" >
+                        {!v.onHoldCount}</div>
+                        </a>
+                    </div>
+                </div>
+            </div> 
+    
+</aura:component>

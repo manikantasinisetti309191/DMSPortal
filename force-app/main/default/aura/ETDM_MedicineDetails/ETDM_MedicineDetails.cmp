@@ -1,0 +1,14 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+	<table style="width:100%"> 
+		<tr> 
+			<th>Medicine Name</th> 
+			<th>Dosage</th> 
+			<th>Quantity</th> 
+		</tr> 
+		<tr> 
+			<td>Lorem Ipsum</td> 
+			<td>500 mg</td> 
+			<td>10 tablets</td>
+		</tr>
+	</table> 
+</aura:component>

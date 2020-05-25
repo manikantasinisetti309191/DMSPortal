@@ -1,0 +1,196 @@
+<aura:component implements="force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="ETAMB_Controller">
+    <aura:attribute name="recordId" type="Id" /> 
+    <aura:attribute name="jobRecord" type="WorkOrder"  default="{'sObjectType':'WorkOrder','StartDate':'','ETDM_Request_Type__c':'','ETDM_Customer_Ref_Number__c':'','ETDM_Customer_Name__c':'','ETDM_Mobile_Number__c':'','Street':'','City':'','State':'','PostalCode':'','Country':'','Latitude':'','Longitude':'',
+                                                               'ETDM_Reason_of_Transfer__c':'', 'EDM_Staff__c':'', 'ETDM_Doctor__c':'', 'ETDM_Remarks__c':'' }" />
+    <aura:attribute name="mandatoryFields" type="List" default="branchId,deliveryAddress,ETDM_Mobile_Number__c,ETDM_Customer_Name__c,ETDM_Request_Type__c,ETDM_Customer_Ref_Number__c"/>
+    <aura:attribute name="deliveryAddress" type="String" />
+    <aura:attribute name="branchList" type="List" />
+    <aura:attribute name="requestTypes" type="List" />
+    <aura:attribute name="branchId" type="Id" />
+    <aura:attribute name="latitude" type="String" /> 
+    <aura:attribute name="longtitude" type="String" />  
+    <aura:attribute name="searchKey" type="string" default=""/>
+    <aura:attribute name="placeholder" type="string" default="Search address" />
+    <aura:attribute name="AddressList" type="String[]"/>
+    <aura:attribute name="addRequestModal" type="boolean"/>
+    
+    <!--<aura:handler event="force:refreshView" action="{!c.doInit}" /> -->
+    
+    <aura:attribute name="productRecords" type="Object[]"/>
+    <aura:attribute name="rows" type="Integer"/>
+    <aura:attribute name="visible" type="Boolean" default="false"/>
+    <aura:attribute name="serverSideAction" type="Boolean" default="false" />
+    <aura:attribute name="loaded" type="Boolean" default="false" />
+    
+    <c:ETDM_UtilityMethods aura:id="ETDM_UtilityMethods"/>
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:if isTrue="{! v.loaded }">
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" >
+            <div class="slds-modal__container" >
+                <!-- ###### MODAL BOX HEADER Start ######-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_large slds-hyphenate">New Transport Request</h2>
+                    
+                </header>
+                <!--###### MODAL BOX BODY Part Start######-->
+                
+                <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+                    
+                    <lightning:layout>
+                        <lightning:layoutItem  size="4" padding="around-small" class="contantimgdiv">
+                            <img src="{!$Resource.ETDM_DeliveryImage}" class="profileimg" />
+                        </lightning:layoutItem>
+                        <lightning:layoutItem  size="8" padding="around-small" class="contantdiv">
+                            <lightning:layout>
+                                <lightning:layoutItem  size="12" padding="around-small" class="padbottom">
+                                    <h2 class="subheading">branch Details</h2>  
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <lightning:layout>
+                                <lightning:layoutItem  size="6" padding="around-small" class="padbottom">
+                                    <lightning:select aura:id="branchId" name="Branch" label="From Hospital" 
+                                                      value="{!v.branchId}"  required="true"  >
+                                        <option value=""> </option>
+                                        <aura:iteration items="{!v.branchList}" var="val">
+                                            <option value="{!val.Id}"> {!val.ETDM_Branch_Address__c}</option>
+                                        </aura:iteration>
+                                    </lightning:select>  
+                                </lightning:layoutItem>
+                                <lightning:layoutItem  size="6" padding="around-small" class="padbottom">
+                                    <lightning:select aura:id="ETDM_Request_Type__c" name="Request Type" label="Request Type" 
+                                                      value="{!v.jobRecord.ETDM_Request_Type__c}" required="true" >
+                                        <option value=""></option>
+                                        <aura:iteration items="{!v.requestTypes}" var="val">
+                                            <option value="{!val}"> {!val}</option>
+                                        </aura:iteration>
+                                    </lightning:select> 
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <aura:if isTrue="{!v.jobRecord.ETDM_Request_Type__c=='Scheduled'}">
+                                <lightning:layout>
+                                    <lightning:layoutItem  size="12" padding="around-small" class="datetimeinp">
+                                        <lightning:input type="datetime" autocomplete="off"  label="Scheduled Date/Time" aura:id="StartDate" required="true" onchange="{!c.validateDate}"
+                                                         name="Start Date/Time" value="{!v.jobRecord.StartDate}"></lightning:input>
+                                        <p aura:id="invalidStartDate" style="color:red" class="slds-hide">Please select future date!</p>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </aura:if>
+                            <lightning:layoutItem  size="12" padding="around-small" class="padbottom">
+                                <h2 class="subheading">Patient Details</h2>  
+                            </lightning:layoutItem>
+                            <lightning:layout>
+                                <lightning:layoutItem  size="6" padding="around-small" class="padbottom">              
+                                    <lightning:input type="text" autocomplete="off" pattern="[a-zA-Z ]*" 
+                                                     messageWhenPatternMismatch="Please use only letters." label="Patient Name and MRN" required="true"  aura:id="ETDM_Customer_Name__c"
+                                                     name="Customer Name" value="{!v.jobRecord.ETDM_Customer_Name__c}" >
+                                    </lightning:input>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem  size="6" padding="around-small" class="padbottom">  
+                                    <lightning:input type="text" autocomplete="off"  label="Patient Ref No" aura:id="ETDM_Customer_Ref_Number__c"
+                                                     name="Request Ref No" required="true" value="{!v.jobRecord.ETDM_Customer_Ref_Number__c}" >
+                                    </lightning:input>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <lightning:layout>
+                                <lightning:layoutItem  size="6" padding="around-small" class="padbottom">  
+                                    <lightning:input type="text" autocomplete="off"  label="Reason of Transfer" aura:id="ETDM_Reason_of_Transfer__c"
+                                                     name="Reason of Transfer" required="true" value="{!v.jobRecord.ETDM_Reason_of_Transfer__c}" >
+                                    </lightning:input>
+                                </lightning:layoutItem>
+                                    <lightning:layoutItem  size="6" padding="around-small" class="padbottom"> 
+                                        <lightning:input type="text" autocomplete="off"  name="Delivery Location" label="Area of Transfer" disabled="false" 
+                                                         aura:id="deliveryAddress"  onkeyup ="{!c.getDeliveryLocation}" 
+                                                         required="true" value="{!v.deliveryAddress}"/>
+                                        <p aura:id="invalidAddress" style="color:red" class="slds-hide">Invalid Address!</p>
+                                        <aura:if isTrue="{!not(empty(v.AddressList))}">
+                                            <div class="Drop-Address-listbox" role="listbox">
+                                                <ul aura:id="Drop-Address-listbox" class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="presentation">
+                                                    <aura:iteration items="{!v.AddressList}" var="addList">
+                                                        <li role="presentation"
+                                                            onclick="{!c.selectOption}"
+                                                            data-value="{!addList.place_id}"
+                                                            class="slds-listbox__item">
+                                                            <span id="listbox-option-unique-id-01"
+                                                                  class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                                  role="option">
+                                                                <span class="slds-media__body slds-m-left_xx-small slds-m-bottom_xx-small">
+                                                                    <div class="slds-grid slds-m-bottom_small">
+                                                                        <div class="slds-col slds-size_1-of-10"> 
+                                                                            <lightning:ButtonIcon size="medium" iconName="utility:checkin" class="slds-input__icon" variant="bare"/></div>
+                                                                        <div class="slds-m-left_medium slds-col slds-size_8-of-10"> 
+                                                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity"><b>{!addList.main_text}</b></span>
+                                                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity slds-m-top_xxx-small">{!addList.secondary_text}</span></div>
+                                                                        <div class="slds-col slds-size_1-of-10"></div>
+                                                                    </div>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </ul>
+                                            </div>
+                                        </aura:if>
+                                        
+                                    </lightning:layoutItem>
+                                </lightning:layout> 
+                            
+                            <lightning:layoutItem  size="12" padding="around-small" class="padbottom">
+                                <h2 class="subheading">Hospital Details</h2>  
+                            </lightning:layoutItem>
+                            
+                            <lightning:layout>
+                                
+                                <lightning:layoutItem  size="6" padding="around-small" class="padbottom">              
+                                    <lightning:input type="text" autocomplete="off" pattern="[a-zA-Z ]*" 
+                                                     messageWhenPatternMismatch="Please use only letters." label="Staff" required="true"  aura:id="EDM_Staff__c"
+                                                     name="Staff" value="{!v.jobRecord.EDM_Staff__c}" >
+                                    </lightning:input>
+                                </lightning:layoutItem>
+                                
+                                <lightning:layoutItem  size="6" padding="around-small" class="padbottom">              
+                                    <lightning:input type="text" autocomplete="off" pattern="[a-zA-Z ]*" 
+                                                     messageWhenPatternMismatch="Please use only letters." label="Doctor" required="true"  aura:id="ETDM_Doctor__c"
+                                                     name="Doctor" value="{!v.jobRecord.ETDM_Doctor__c}" >
+                                    </lightning:input>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                             <lightning:layout>
+                                 
+                                 <lightning:layoutItem  size="6" padding="around-small" class="padbottom">              
+                                    <lightning:input type="text" autocomplete="off" pattern="[a-zA-Z ]*" 
+                                                     messageWhenPatternMismatch="Please use only letters." label="Remarks" required="true"  aura:id="ETDM_Remarks__c"
+                                                     name="Remarks" value="{!v.jobRecord.ETDM_Remarks__c}" >
+                                    </lightning:input>
+                                </lightning:layoutItem>
+                                
+                            </lightning:layout>
+                            
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <div class="slds-form-element slds-float_right" > 
+                            <lightning:button variant="neutral" 
+                                              label="Cancel"
+                                              title="Cancel"
+                                              onclick="{! c.closeModel }" class="btn_table"/>
+                            <lightning:button variant="brand" 
+                                              label="Add"
+                                              title="Add"
+                                              onclick="{!c.creatRequest}" class="btn_table"/>
+                        </div>
+                        
+                    </footer>
+                </div>
+            </section>
+            
+        </aura:if>
+    </aura:component>

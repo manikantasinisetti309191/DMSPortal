@@ -1,0 +1,122 @@
+.THIS html{
+    behavior: smooth;
+}
+.THIS .statusdiv{
+    text-align: center;
+    width: 14%;
+    height: 175px;
+    margin: 1% 0% 1% 1%;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+    background:#ffffff;
+    padding:30px 10px;
+    border-radius: 10px;
+}
+.THIS .statusdiv:hover{
+    transform: scale(1.1);
+}
+.THIS .slds-text-heading_large , .THIS .slds-text-heading--large {
+    font-size: 3.5rem;color: #967000;
+}
+.THIS .slds-text-heading_large a, .THIS .slds-text-heading--large a{
+    font-size: 3.5rem;
+    color: #967000;    
+}
+.THIS .slds-text-heading_large a:hover, .THIS .slds-text-heading--large a:hover{
+    font-size: 3.5rem;
+    color: #967000; 
+        text-decoration: none;
+}
+.THIS .slds-tabs_default__nav, .THIS .slds-tabs--default__nav {
+    border-bottom: 1px solid #f2f2f2;
+}
+.THIS .statusdiv:first-child {
+  margin: 1% 0% 1% 0%;
+}
+.THIS .headspan{
+    font-size:14px;
+}
+.THIS .valuespan{
+    padding-top:2px;
+}
+
+.THIS .statusdiv a{
+    text-decoration: none;
+    color: #555;
+}
+.THIS .statusdiv a:hover{
+    text-decoration: none;
+    color: #555;
+}
+@media only screen and (max-width: 1024px) {
+   .THIS .headspan {
+        height: 50px;
+        display: block;
+        padding-top: 10px;
+    }
+    .THIS .valuespan {
+        font-weight: bold;
+        padding-top: 5px;
+    }
+}
+@media only screen and (max-width: 768px) {
+   .THIS .headspan {
+        font-size: 16px;
+        line-height: 20px;
+        height: 50px;
+        display: block;
+        padding-top: 10px;
+    }
+    .THIS .valuespan {
+        font-weight: bold;
+        padding-top: 5px;
+        font-size: 2rem;
+    }
+    .THIS h1.mainheading {
+        padding-top: 4px;
+    }
+}
+@media only screen and (max-width: 767px) {
+   .THIS .slds-grid {
+        display:block;
+    }
+    .THIS .statusdiv {
+        width: 49%!important;
+    }
+    .THIS .headspan {
+        font-size: 18px;
+        line-height: auto;
+        height: auto;
+    }
+    .THIS .valuespan {
+        font-weight: bold;
+        padding-top: 20px;
+        font-size: 2.5rem;
+    }
+    .THIS .statusdiv:first-child {
+        margin: 1% 0% 1% 1%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .THIS .slds-grid {
+        display:block;
+    }
+    .THIS .statusdiv {
+        width: 99%!important;
+    }
+    .THIS .headspan {
+        font-size: 18px;
+        line-height: auto;
+        height: auto;
+    }
+    .THIS .valuespan {
+        font-weight: bold;
+        padding-top: 20px;
+        font-size: 2.5rem;
+    }
+    .THIS .statusdiv:first-child {
+        margin: 1% 0% 1% 1%;
+    }
+}

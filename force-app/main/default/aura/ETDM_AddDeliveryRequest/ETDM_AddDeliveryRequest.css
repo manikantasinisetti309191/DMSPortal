@@ -1,0 +1,218 @@
+.THIS .popupModal{    
+
+}
+.THIS .slds-modal__container {
+    width: 90% !important;
+    max-width: 90% !important;
+}
+.THIS .slds-modal__content {
+    overflow-y: auto;
+}
+.THIS .slds-modal__header {
+    background-color: #967000;
+    border-bottom: none;
+}
+.THIS .slds-text-heading--large , .THIS .slds-text-heading_large {
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color:#fff;
+}
+.THIS .slds-modal__close {
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    background: #fff;
+    border-radius: 50%;
+}
+.THIS .slds-button_icon-inverse {
+    color: rgb(0, 0, 0);
+}
+.THIS .profileimg{
+    height: 300px;
+    display: block;
+    max-width: 100%;
+    border: 1px solid #dbd8d8;
+    border-radius: 3px;
+}
+.THIS .slds-input, .THIS select {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 42px;
+    border: 1px solid #dbd8d8;
+    border-radius: 3px;
+    background-color: #f1f1f1;
+    display: block;
+    font-size: 14px;
+    line-height: 26px;
+    color: #5d5b5e;
+    padding: 0 10px;
+}
+.THIS .slds-p-around_large, .THIS .slds-p-around--large {
+    padding: 0rem;
+}
+.THIS .padbottom{
+    padding-bottom:0px;padding-top: 0px;
+}
+.THIS .slds-form-element__label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.THIS .subheading{
+    font-size: 14px;
+    border-bottom: 1px solid #dbd8d8;
+    padding: 0px 0px 5px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;    color: #00c19e;
+}
+.THIS .Drop-Address-listbox{
+        position: relative;
+        margin-top: -12px;
+}
+.THIS .medicinedetails{
+    font-size: 14px;
+    border-bottom: 1px solid #dbd8d8;
+    padding: 0px 0px 5px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;    color: #00c19e;
+    margin:15px;
+}
+.THIS .btnsaveicon svg {
+    color: #00c19e;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    border: 2px solid #00c19e;
+    position: absolute;
+    right: 15px;
+    top: 24px;
+    display: inline-block;
+}
+/*.THIS .slds-icon-text-default {
+    fill: #00c19e;
+}*/
+
+.THIS .slds-card__header {
+    padding:0;
+    margin: 0;
+}
+.THIS .tablelists{
+    margin: 0px 1%;
+    border: 1px solid #dbd8d8;
+    border-collapse: collapse;
+    width: 98%;
+}
+.THIS .tablelistrow{
+    margin: 0 1%;
+    border: 1px solid #dbd8d8;
+    border-collapse: collapse;
+    width: 98%;
+    border-top: none;
+}
+.THIS .tablelists .slds-col{
+    width:20%;
+    border-right:1px solid #dbd8d8;
+    font-size:14px;
+}
+.THIS .tablelists .slds-size_3-of-12{
+    width:20%;
+    border-right:1px solid #dbd8d8;
+    font-size:14px;
+}
+.THIS .tablelists .slds-size_4-of-12{
+    width:20%;
+    border-right:1px solid #dbd8d8;
+    font-size:14px;
+}
+.THIS .tablelists .slds-size_4-of-12{
+    width:20%;
+    border-right:1px solid #dbd8d8;
+    font-size:14px;
+}
+.THIS .tablelists .slds-size_2-of-12{
+    width:20%;font-size:14px;
+}
+.THIS .tablelistrow .slds-col{
+    width:20%;
+    text-align:left;
+    border-right:1px solid #dbd8d8;
+    height: 46px;
+}
+.THIS .tablelistrow .slds-size_4-of-12{
+    width:20%;
+    border-right:1px solid #dbd8d8;
+}
+.THIS .tablelistrow .slds-size_3-of-12{
+    width:20%;
+    border-right:1px solid #dbd8d8;
+}
+.THIS .tablelistrow .slds-p-around_small:last-child{
+    width:20%!important;
+}
+.THIS .tablelistrow .slds-form-element{
+    padding:5px;
+}
+.THIS .tablelistrow .slds-form-element__label{
+    display:none;
+}
+.THIS .tablelistrow select{
+    margin-bottom:0px;height:36px;
+}
+.THIS .tablelistrow svg {
+    width: 20px;
+    height: 20px;
+    text-align:center;
+}
+.THIS .btn_table {
+    font-size: 14px;
+    margin-top: 3px;
+    background: #f2f2f2;
+    border: 1px solid #00c19e;
+    padding: 2px 15px;
+    color: #00c19e;
+   	white-space: nowrap;
+}
+.THIS .btn_table:hover {
+    background: #00c19e;
+    border: 1px solid #00c19e;
+    padding: 2px 15px;
+    color: #fff;
+}
+.THIS .slds-modal__footer {
+    border-top: 1px solid #d4d4d4;
+}
+.THIS .datetimeinp .slds-form-element__label:empty{
+    display :none;
+}
+.THIS .slds-form_compound .slds-form-element__row .slds-form-element+.slds-form-element{
+    padding-left: 1rem;
+}
+.THIS .slds-m-left_xx-small{
+    overflow:hidden;
+}
+@media only screen and (max-width: 768px) {
+    .THIS .contantimgdiv{
+        display:none;
+    }
+    .THIS .contantdiv{
+        width:100%;
+    }
+    .THIS .tablemaindiv{
+        width:100%;overflow:auto;
+    }
+    .THIS .tablelistrow {
+        border-right: 1px solid transparent;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .THIS .slds-modal__container {
+        width: 90%!important;
+        max-width: 90%!important;
+        margin: auto!important;
+    }
+}

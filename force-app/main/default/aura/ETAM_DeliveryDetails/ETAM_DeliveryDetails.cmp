@@ -1,0 +1,210 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+                access="global" >
+    <aura:attribute name="isReportModal" type="boolean" default="false"/>
+    <aura:attribute name="isCancelModal" type="boolean" default="false"/>
+    <aura:attribute name="isDriverModal" type="boolean" default="false"/>
+    <aura:attribute name="isTrackModal" type="boolean" default="false"/>
+    <aura:attribute name="totalRecords" type="Integer"/>
+    <aura:attribute name="RecordsCount" type="Integer"/>
+    <aura:attribute name="corousalSize" type="Integer" default="3"/>
+    <aura:attribute name="start" type="Integer" default="0"/>
+    <aura:attribute name="currentData" type="list"/>
+    <aura:attribute name="status" type="String"/>
+    <aura:attribute name="deliveryData" type="list"/>
+    <aura:attribute name="fileredData" type="list"/>
+    <aura:attribute name="workOrderId" type="Id"/>
+    <aura:attribute name="productList" type="list"/> 
+    <aura:attribute name="searchText" type="string"/> 
+    <aura:attribute name="loaded" type="Boolean" default="false" />
+    <c:ETDM_UtilityMethods aura:id="ETDM_UtilityMethods"/>
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:if isTrue="{! v.loaded }">
+    <aura:if isTrue="{!v.deliveryData.length>0}"> 
+    <div style="padding:0px" class="serchboxtab">
+        <lightning:input type="search"
+         name="searchKey" value="{!v.searchText}" 
+         aura:id="searchKey"  onkeyup="{!c.searchRequest}" placeholder="Search Requests" />
+    </div>
+    </aura:if>
+    <aura:if isTrue="{!v.currentData.length>0}"> 
+    <div class="tablemaindiv">
+    <table style="width:100%" > 
+		<tr> 
+			<th width="140px"> No
+                <lightning:buttonIcon iconName="utility:sort"
+                                    onclick="{! c.sortData }"
+                                    alternativeText=""
+                                    value="WorkOrderNumber"
+                                    class="btnsorticon"/>
+            </th> 
+            <!--{!$Label.c.ETDM_Request_time}-->
+			<th width="150px"> Date
+                <lightning:buttonIcon iconName="utility:sort"
+                                    onclick="{! c.sortData }"
+                                    alternativeText=""
+                                    value="StartDate"
+                                    class="btnsorticon"/>
+            </th> 
+			<th width="150px">Patient Name and MRN
+               <!-- <lightning:buttonIcon iconName="utility:sort"
+                                    onclick="{! c.sortData }"
+                                    alternativeText=""
+                                    value="ETDM_Customer_Name__c"
+                                    class="btnsorticon"/> -->
+            </th> 
+            <!--<th width="150px">Patient Refernce Number</th> -->
+            <th width="300px">Reason Of Transfer</th>
+            <!--<th width="250px">From &#10142; To</th> -->
+            <th width="250px">Area Of Transfer</th>
+            <th width="250px">Staff</th>
+            <th width="250px">Doctor</th>
+            <th width="300px">Time Leave</th>
+            <th width="300px">Time Reach</th>
+            <th width="250px">Ambulance Number</th>
+            <th width="250px">Remarks</th>
+            <th width="100px" align="center" >{!$Label.c.ETDM_Status}</th> 
+            <th width="400px" align="center">{!$Label.c.ETDM_Actions}</th> 
+        </tr> 
+    <aura:iteration items="{!v.currentData}" var="item">
+		<tr> 
+            <td>{!item.ServiceAppointments[0].AppointmentNumber}</td> 
+			<td><lightning:formattedDateTime value="{!item.StartDate}"  
+                year="numeric" month="numeric" day="numeric"   hour="2-digit" minute="2-digit"
+                timeZone="Asia/Dubai" hour12="true"/></td> 
+			<td>{!item.ETDM_Customer_Name__c}</td> 
+            <!--<td>{!item.ETDM_Mobile_Number__c}</td> -->
+            <td>{!item.ETDM_Reason_of_Transfer__c}</td> 
+            <td style="text-align:left;">
+                <label class="pickupLabel"><span class="pickupdot"></span>{!item.Account.ETDM_Branch_Address__c} </label>
+            	<label class="deliveryLabel"><span class="deliverydot"></span>{!item.Street}, {!item.City}, {!item.State}, {!item.Country}</label>
+            </td> 
+            <td>{!item.EDM_Staff__c}</td> 
+            <td>{!item.ETDM_Doctor__c}</td> 
+            <td><lightning:formattedDateTime value="{!item.ServiceAppointments[0].ActualStartTime}"  
+                year="numeric" month="numeric" day="numeric"   hour="2-digit" minute="2-digit"
+                timeZone="Asia/Dubai" hour12="true"/></td> 
+            <td><lightning:formattedDateTime value="{!item.ServiceAppointments[0].ActualEndTime}"  
+                year="numeric" month="numeric" day="numeric"   hour="2-digit" minute="2-digit"
+                timeZone="Asia/Dubai" hour12="true"/></td> 
+            <td>5678</td> 
+            <td>{!item.ETDM_Remarks__c}</td> 
+            <td align="center" class="inprogress">
+            <aura:if isTrue="{!item.Status=='In Progress'}"> 
+                Transfer in Progress
+                </aura:if>
+                 <aura:if isTrue="{!item.Status=='Dispatched'}"> 
+                Accepted By Ambulance
+                </aura:if>
+                 <aura:if isTrue="{!item.Status=='Completed'}"> 
+                Transferred 
+                </aura:if> 
+                <aura:if isTrue="{!item.Status=='Scheduled'}"> 
+               Assigned To Ambulance
+                </aura:if>
+           
+            </td> 
+            <td align="center"> 
+                <lightning:buttonIcon iconName="utility:report_issue"
+                onclick="{! c.openReportModal }"
+                value="{!item.Id}"
+                alternativeText="Report us"
+                class="btnsaveicon"/>
+                <!--lightning:button value="{!item.Id}" variant="brand" label="Report us" onclick="{!c.openReportModal}" class="btn_table"/--> 
+                <!--lightning:button  variant="brand" label="View Reciept"  onclick="{!c.printReciept}" class="btn_table" /-->
+                <lightning:buttonIcon iconName="utility:print"
+                onclick="{! c.printReciept }"
+                value="{!item.Id}"
+                alternativeText="View Reciept"
+                class="btnsaveicon"/>
+                <aura:if isTrue="{!v.status=='Active'}">
+                    <lightning:buttonIcon iconName="utility:close"
+                    onclick="{! c.cancelRequestModal }"
+                    value="{!item.Id}"
+                    alternativeText="Cancel Request"
+                    class="btnsaveicon"/>
+                    <lightning:buttonIcon iconName="utility:contact_request"
+                    onclick="{! c.contactDriverModal }"
+                    value="{!item.Id}"
+                    alternativeText="Contact Driver"
+                    class="btnsaveicon"/>
+                    <lightning:buttonIcon iconName="utility:tracker"
+                    onclick="{! c.trackOrderModal }"
+                    value="{!item.Id}"
+                    alternativeText="Track Order"
+                    class="btnsaveicon"/> 
+                    <!--lightning:button value="{!item.Id}" variant="brand" label="Cancel" onclick="{!c.cancelRequestModal}" class="btn_table"/> 
+                    <lightning:button  variant="brand" label="Contact Driver"  onclick="{!c.contactDriverModal}" class="btn_table" />
+                    <lightning:button  variant="brand" label="Track Order"  onclick="{!c.trackOrderModal}" class="btn_table" /-->
+                </aura:if>
+               </td> 
+        </tr>
+    </aura:iteration>
+        
+    </table> 
+    </div>
+    </aura:if>
+    <aura:if isTrue="{!v.currentData.length==0}"> 
+        <div class="textcenter">
+            <p class="noresult">No Results</p>
+          	<img src="{!$Resource.ETDM_NoDataFound}" class="noresultsimg" />
+        </div>
+    </aura:if>
+    <aura:set attribute="else">
+                        <lightning:spinner alternativeText="Loading" />
+                    </aura:set>
+  </aura:if>
+    <div class="btnbotdiv">
+    <aura:if isTrue="{!v.start!=0}"> 
+        <!--lightning:button  variant="brand" label="Prev" onclick="{!c.getPreviousList}" class="btn_table"/-->                                          
+        <a  href="javascript:void(0);"   onclick="{!c.getPreviousList}" class="btnnext txtleft">&#60;&#60; Prev</a> 
+    </aura:if>
+    <aura:if isTrue="{!lessthan(v.start+v.corousalSize,v.totalRecords)}">
+         <a  href="javascript:void(0);"  onclick="{!c.getNextList}" class="btnnext txtright">Next &#62;&#62;</a> 
+        <!--lightning:button  variant="brand" label="Next" onclick="{!c.getNextList}" 
+            class="btn_table slds-float_right"/--> 
+    </aura:if>
+    </div>
+    <div class="slds-hide popupviewbtn1" aura:id="ConfirmDialog1" id="viewlistdiv">
+        
+        			<div class="" style="height:128px;padding: 0px;overflow:auto" >
+                        <lightning:buttonIcon iconName="utility:close"
+                                  onclick="{! c.handleDone }"
+                                  alternativeText="close"
+                                  class="slds-modal__close"/> 
+                        <table style="width:100%"> 
+                            <tr> 
+                                <th>{!$Label.c.ETDM_Category}</th> 
+                                <th>{!$Label.c.ETDM_Weight}</th> 
+                                <th>{!$Label.c.ETDM_Size}</th> 
+                            </tr> 
+                           <aura:iteration items="{!v.productList}" var="item">
+                            <tr> 
+                                <td>{!item.ETDM_Category__c}</td> 
+                                <td>{!item.ETDM_Weight__c}</td> 
+                                <td>{!item.ETDM_Size__c}</td>
+                            </tr>
+                        </aura:iteration>
+                        </table> 
+                       
+                    </div>	
+                 <!--lightning:button  variant="brand" label="Done" title="done" onclick="{!c.handleDone}" class="btn_table"/-->   
+             </div>
+   
+    
+    <aura:if  isTrue="{!v.isReportModal}" > 
+        <c:ETDM_HospitaFeedbackPage workOrderId="{!v.workOrderId}" isReportModal="{!v.isReportModal}" aura:id="feedbackPage" />
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <aura:if  isTrue="{!v.isCancelModal}" > 
+        <c:ETDM_RequestCancelPage workOrderId="{!v.workOrderId}" isCancelModal="{!v.isCancelModal}" aura:id="feedbackPage" />
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <aura:if  isTrue="{!v.isDriverModal}" > 
+        <c:ETDM_ContactDriverPage workOrderId="{!v.workOrderId}" isDriverModal="{!v.isDriverModal}" aura:id="feedbackPage" />
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <aura:if  isTrue="{!v.isTrackModal}" > 
+        <c:ETDM_TrackOrderPage workOrderId="{!v.workOrderId}" isTrackModal="{!v.isTrackModal}" aura:id="feedbackPage" />
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

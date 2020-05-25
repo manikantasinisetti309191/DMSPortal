@@ -1,0 +1,36 @@
+.THIS .slds-modal__header {
+    background-color: #967000;
+    border-bottom: none;
+}
+.THIS .slds-modal__close {
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    background: #fff;
+    border-radius: 50%;
+}
+.THIS .slds-text-heading_large, .THIS .slds-text-heading--large{
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: #fff;
+}
+.THIS .slds-button_icon-inverse{
+    color: rgb(0, 0, 0);
+}
+.THIS .slds-modal__footer {
+    border-top: 1px solid #d4d4d4;
+}
+.THIS p{
+        font-size: 16px; text-align:center;margin: 10% 0%;
+}
+
+@media only screen and (max-width: 767px) {
+    .THIS .slds-modal__container {
+        margin: 0 auto;
+        width: 300px;
+        max-width: 300px;
+    }
+}

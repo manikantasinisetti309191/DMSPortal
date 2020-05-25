@@ -1,0 +1,151 @@
+.THIS {
+}
+.THIS .slds-spinner_container  {
+    background: none;
+}
+.THIS .slds-modal__container {
+    width: 320px!important;
+    width: 320px!important;
+    float: right;
+    right:0px;
+    bottom: 30px!important;
+}
+.THIS .slds-modal__header{
+    background-color: #967000;
+    border-bottom: none;
+}
+.THIS .slds-modal__content {
+    overflow-y: auto;
+}
+.THIS .slds-modal__header h2{
+    color:#fff;
+}
+.THIS .slds-modal__close {
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    background: #fff;
+    border-radius: 50%;
+}
+.THIS .slds-button_icon-inverse {
+    color: rgb(0, 0, 0);
+}
+.THIS .slds-card__header {
+    padding: 0rem;
+    margin: auto;
+    text-align: center;
+}
+/*.THIS .slds-modal {
+    z-index: 100!important;
+}
+.THIS .slds-backdrop_open, .THIS .slds-backdrop--open{
+    background: none!important;
+    z-index: 1!important;
+   visibility: hidden!important;
+    display: none;
+}*/
+.THIS .slds-m-top_medium, .THIS .slds-m-top--medium {
+    margin-bottom: 1rem;
+    margin-top: 0px;
+    width: 100%;
+    display: block;
+    margin-left: 0px;
+}
+.THIS .slds-m-top_medium:last-child, .THIS .slds-m-top--medium:last-child{
+    margin-bottom: 0rem;
+}
+.THIS .btnpopupback{
+    font-size: 14px!important;
+    padding: 2px 15px;width:49%;
+}
+.THIS [lightning-textarea_textarea-host] , .THIS [lightning-input_input-host] {
+    display: inline;
+}
+.THIS .slds-input , .THIS select{
+    width: 100%;
+    margin-bottom: 10px;
+    height: 42px;
+    border: 1px solid #dbd8d8;
+    border-radius: 3px;
+    background-color: #f1f1f1;
+    display: block;
+    font-size: 14px;
+    line-height: 26px;
+    color: #5d5b5e;
+    padding: 0 10px;
+}
+.THIS textarea{
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #dbd8d8;
+    border-radius: 3px;
+    background-color: #f1f1f1;
+    display: block;
+    font-size: 14px;
+    line-height: 26px;
+    color: #5d5b5e;
+    padding: 0 10px;
+    resize:none;
+    height:80px;
+}
+.THIS .slds-form-element__label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.THIS .slds-form--stacked .slds-button_icon-inverse {
+    color: rgb(218, 218, 218);
+    padding-right: 5px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+}
+.THIS .slds-form--stacked a{
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2c8fbc;
+    text-decoration: none;
+    padding: 15px 0px;
+    width: 100%;
+    display: block;
+}
+.THIS .slds-form--stacked a:last-child{
+    border-bottom: none;
+}
+.THIS .slds-form--stacked p , .THIS .slds-card__body p{
+    font-size: 14px;
+    line-height: 26px;
+    color: #5d5b5e;padding-bottom: 5px;
+}
+.THIS .slds-card__body{
+    margin:0px;
+}
+.THIS .slds-p-horizontal--small {
+    padding:0px;
+}
+.THIS .btnsaveicon{
+    color: #00c19e;
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+    border-radius: 50%;
+    border: 1px solid #00c19e;
+}
+.THIS .btnsaveicon:hover{
+    background: #00c19e;
+    border: 1px solid #00c19e;
+}
+.THIS .btnsaveicon .slds-button_icon-inverse {
+    color: #00c19e;
+    height:24px;
+    width:24px;
+}
+.THIS .btnsaveicon:hover .slds-button_icon-inverse {
+    color: #fff;
+    border: 1px solid #00c19e;
+}
+.THIS .deschight .slds-input{
+    height:100px!important;
+}

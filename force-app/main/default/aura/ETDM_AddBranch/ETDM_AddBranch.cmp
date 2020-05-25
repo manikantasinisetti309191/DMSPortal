@@ -1,0 +1,92 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+	<aura:attribute name="addBranchModal" type="boolean" />
+    <aura:attribute name="hospitalId" type="Id"/>
+    <aura:attribute name="accountRecord" type="Account"  default="{'sObjectType':'Account','Name':'','ParentId':'','ETDM_Hospital_Email_Id__c':'','Phone':'','BillingCity':'','BillingCountry':'' , 'BillingLatitude':'' , 'BillingPostalCode':'','BillingLongitude':'' ,'BillingState':'' ,'BillingStreet':'' }" />
+    <aura:attribute name="branchAddress" type="String" />
+	<aura:attribute name="mandatoryFields" type="List" default="Name,Phone,ETDM_Hospital_Email_Id__c,branchAddress"/>
+
+    <aura:attribute name="latitude" type="String" /> 
+    <aura:attribute name="longtitude" type="String" />  
+    <aura:attribute name="searchKey" type="string" default=""/>
+    <aura:attribute name="placeholder" type="string" default="Search address" />
+    <aura:attribute name="AddressList" type="String[]"/>
+    
+    <c:ETDM_UtilityMethods aura:id="ETDM_UtilityMethods"/>
+     <!--force:recordData aura:id="AccountRecordCreator" 
+                      layoutType="FULL"
+                      targetRecord="{!v.newAccount}"
+                      targetFields="{!v.simpleNewAccount}"
+                      targetError="{!v.newAccountError}" /-->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" >
+    <div class="slds-modal__container" >
+        <!-- ###### MODAL BOX HEADER Start ######-->
+        <header class="slds-modal__header">
+            <lightning:buttonIcon iconName="utility:close"
+                                  onclick="{! c.closeModel }"
+                                  alternativeText="close"
+                                  variant="bare-inverse"
+                                  class="slds-modal__close"/>
+            <h2 id="modal-heading-01" class="slds-text-heading_large slds-hyphenate">Create Branch</h2>
+            
+        </header>
+        <!--###### MODAL BOX BODY Part Start######-->
+        <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+
+    <div class="Create Branch">
+        
+            <div class="slds-p-horizontal--small">
+                <lightning:input aura:id="Name" required="true"  autocomplete="off" pattern="[a-zA-Z ]*" 
+                 messageWhenPatternMismatch="Please use only letters." label="Branch Name" value="{!v.accountRecord.Name}"/>
+                <lightning:input  aura:id="Phone" pattern="[0-9]*" maxlength="9"  minlength="9" placeholder="Please enter 9 digit mobile number"
+                                 messageWhenPatternMismatch="Phone number is not valid" required="true" autocomplete="off"  label="Phone" value="{!v.accountRecord.Phone}"/>
+                <lightning:input type="email" aura:id="ETDM_Hospital_Email_Id__c" autocomplete="off"  required="true"  label="Email Id" value="{!v.accountRecord.ETDM_Hospital_Email_Id__c}"/>
+                <lightning:input type="text" name="Branch Address" autocomplete="off"  label="Branch Address" disabled="false" 
+                                aura:id="branchAddress"  onkeyup ="{!c.getBranchLocation}" 
+                                required="true" value="{!v.branchAddress}"/>
+                <p aura:id="invalidAddress" style="color:red" class="slds-hide">Invalid Address!</p>
+
+                <aura:if isTrue="{!not(empty(v.AddressList))}">
+                    <div class="Drop-Address-listbox" role="listbox">
+                        <ul aura:id="Drop-Address-listbox" class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="presentation">
+                            <aura:iteration items="{!v.AddressList}" var="addList">
+                                <li role="presentation"
+                                    onclick="{!c.selectOption}"
+                                    data-value="{!addList.place_id}"
+                                    class="slds-listbox__item">
+                                    <span id="listbox-option-unique-id-01"
+                                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                        role="option">
+                                        <span class="slds-media__body slds-m-left_xx-small slds-m-bottom_xx-small">
+                                            <div class="slds-grid slds-m-bottom_small">
+                                                <div class="slds-col slds-size_1-of-10"> 
+                                                    <lightning:ButtonIcon size="medium" iconName="utility:checkin" class="slds-input__icon" variant="bare"/></div>
+                                                <div class="slds-m-left_medium slds-col slds-size_8-of-10"> 
+                                                    <span class="slds-listbox__option-text slds-listbox__option-text_entity"><b>{!addList.main_text}</b></span>
+                                                    <span class="slds-listbox__option-text slds-listbox__option-text_entity slds-m-top_xxx-small">{!addList.secondary_text}</span></div>
+                                                <div class="slds-col slds-size_1-of-10"></div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                </li>
+                            </aura:iteration>
+                        </ul>
+                    </div>
+                </aura:if>
+                <br/>
+                <lightning:button label="Add Branch" variant="brand" onclick="{!c.handleSaveAccount}" class="btn_table btnright"/>
+            </div>
+       
+    </div>
+        </div>
+        </div>
+    </section>
+    <!-- Display Lightning Data Service errors >
+    <aura:if isTrue="{!not(empty(v.newAccountError))}">
+        <div class="recordError">
+            {!v.newAccountError}</div>
+    </aura:if-->
+    
+    
+    
+</aura:component>

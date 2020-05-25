@@ -1,0 +1,18 @@
+table.THIS {
+    border: 1px solid RGB(202, 204, 202); 
+    border-collapse: collapse; 
+}
+
+
+.THIS td{
+    border: 1px solid RGB(202, 204, 202); 
+    border-collapse: collapse; 
+    padding: 20px; 
+}
+
+.THIS th{
+    border: 1px solid RGB(202, 204, 202); 
+    border-collapse: collapse; 
+    padding: 20px;
+    text-align: left; 
+}
