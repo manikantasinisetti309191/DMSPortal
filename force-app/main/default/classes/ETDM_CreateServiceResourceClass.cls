@@ -14,7 +14,7 @@ public class ETDM_CreateServiceResourceClass {
         }
         
 
-
+      // Iterating Over Vehicles
         for(ETDM_Vehicle__c v : vehicles){
             //Create user with Driver info in Vehicle
             user u = new user();
